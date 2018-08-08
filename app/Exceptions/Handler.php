@@ -45,6 +45,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if (is_a($e, ApiException::class)) {
+            // $e = new ApiException($e->getMessage(), $e->getCode());
+            return $e->render($request);
+        }
         return parent::render($request, $e);
     }
 }
