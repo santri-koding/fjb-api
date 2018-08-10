@@ -41,4 +41,9 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
     {
         return $this->hasMany(Bill::class, 'admin_id', 'id');
     }
+
+    public function sponsors()
+    {
+        return $this->hasMany(Sponsor::class, 'admin_id', 'id');
+    }
 }

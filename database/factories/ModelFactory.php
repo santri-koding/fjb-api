@@ -163,6 +163,28 @@ $factory->define(App\Models\Role::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(\App\Models\Sponsor::class, function (Faker\Generator $faker) {
+    return [
+        'admin_id' => function() {
+            return \App\Models\Admin::withTrashed()->inRandomOrder()->first()->id;
+        },
+        'name' => $faker->company,
+        'title' => $faker->sentence,
+        'description' => $faker->paragraph,
+        'link' => $faker->url,
+        'photo' => $faker->image(),
+        'photo_link' => $faker->imageUrl(),
+        'status' => $faker->boolean,
+        'ended_at' => function() use ($faker) {
+            return $faker->boolean ? $faker->dateTime : null;
+        },
+        'count' => $faker->numberBetween(),
+        'deleted_at' => function() use ($faker) {
+            return $faker->boolean ? $faker->dateTime : null;
+        }
+    ];
+});
+
 $factory->define(App\Models\SubCategory::class, function (Faker\Generator $faker) {
     $sub_category = $faker->name;
     return [
