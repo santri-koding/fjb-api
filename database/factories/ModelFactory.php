@@ -60,13 +60,13 @@ $factory->define(App\Models\Ads::class, function (Faker\Generator $faker) {
         'is_sold' => $faker->boolean,
         'status' => $faker->boolean,
         'admin_id' => function() {
-            return \App\Models\Admin::inRandomOrder()->first()->id;
+            return \App\Models\Admin::withTrashed()->inRandomOrder()->first()->id;
         },
         'category_id' => function() {
-            return \App\Models\Category::inRandomOrder()->first()->id;
+            return \App\Models\Category::withTrashed()->inRandomOrder()->first()->id;
         },
         'sub_category_id' => function() {
-            return \App\Models\SubCategory::inRandomOrder()->first()->id;
+            return \App\Models\SubCategory::withTrashed()->inRandomOrder()->first()->id;
         },
         'city_id' => function() {
             return \App\Models\City::inRandomOrder()->first()->id;
@@ -80,7 +80,7 @@ $factory->define(App\Models\Ads::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Bill::class, function (Faker\Generator $faker) {
     return [
         'admin_id' => function() {
-            return \App\Models\Admin::inRandomOrder()->first()->id;
+            return \App\Models\Admin::withTrashed()->inRandomOrder()->first()->id;
         },
         'total_payment' => $faker->numberBetween(10000, 100000)
     ];
@@ -116,7 +116,7 @@ $factory->define(App\Models\District::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Feedback::class, function (Faker\Generator $faker) {
     return [
         'admin_id' => function() use ($faker) {
-            return ($faker->boolean) ? \App\Models\Admin::inRandomOrder()->first()->id : null;
+            return ($faker->boolean) ? \App\Models\Admin::withTrashed()->inRandomOrder()->first()->id : null;
         },
         'name' => $faker->name,
         'subject' => $faker->sentence,
